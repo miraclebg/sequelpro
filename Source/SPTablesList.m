@@ -241,7 +241,7 @@ static NSString *SPDuplicateTable = @"SPDuplicateTable";
 			
 			for (NSArray *eachRow in theResult) {
 
-				bTableType = [[NSString alloc] initWithData:[eachRow objectAtIndex:1] encoding:NSUTF8StringEncoding];
+				bTableType = [[eachRow objectAtIndex:1] isKindOfClass:[NSString class]] ? [eachRow objectAtIndex:1] : [[NSString alloc] initWithData:[eachRow objectAtIndex:1] encoding:NSUTF8StringEncoding];
 				
 				// Due to encoding problems it can be the case that [resultRow objectAtIndex:0]
 				// return NSNull, thus catch that case for safety reasons

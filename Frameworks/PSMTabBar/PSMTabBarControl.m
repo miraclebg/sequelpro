@@ -66,7 +66,7 @@
 - (id)cellForPoint:(NSPoint)point cellFrame:(NSRectPointer)outFrame;
 
 - (void)fireSpring:(NSTimer *)timer;
-- (void)animateShowHide:(NSTimer *)timer;
+- (void)animateShowHide:(NSDictionary *)timer;
 - (void)_animateCells:(NSTimer *)timer;
 @end
 
@@ -936,14 +936,14 @@
 		[_showHideAnimationTimer invalidate];
 		[_showHideAnimationTimer release];
 	}
-    _showHideAnimationTimer = [[NSTimer scheduledTimerWithTimeInterval:(1.0 / 30.0) target:self selector:@selector(animateShowHide:) userInfo:userInfo repeats:YES] retain];
+    //_showHideAnimationTimer = [[NSTimer scheduledTimerWithTimeInterval:(1.0 / 30.0) target:self selector:@selector(animateShowHide:) userInfo:userInfo repeats:YES] retain];
+	[self animateShowHide:userInfo];
 }
 
-- (void)animateShowHide:(NSTimer *)timer
+- (void)animateShowHide:(NSDictionary *)userInfo
 {
     // moves the frame of the tab bar and window (or partner view) linearly to hide or show the tab bar
     NSRect myFrame = [self frame];
-	NSDictionary *userInfo = [timer userInfo];
     CGFloat myCurrentOrigin = ([[userInfo objectForKey:@"myOriginalOrigin"] floatValue] + (([[userInfo objectForKey:@"myTargetOrigin"] floatValue] - [[userInfo objectForKey:@"myOriginalOrigin"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));
     CGFloat myCurrentSize = ([[userInfo objectForKey:@"myOriginalSize"] floatValue] + (([[userInfo objectForKey:@"myTargetSize"] floatValue] - [[userInfo objectForKey:@"myOriginalSize"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));
     CGFloat partnerCurrentOrigin = ([[userInfo objectForKey:@"partnerOriginalOrigin"] floatValue] + (([[userInfo objectForKey:@"partnerTargetOrigin"] floatValue] - [[userInfo objectForKey:@"partnerOriginalOrigin"] floatValue]) * (_currentStep/kPSMHideAnimationSteps)));

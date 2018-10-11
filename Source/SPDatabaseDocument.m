@@ -4346,6 +4346,7 @@ static int64_t SPDatabaseDocumentInstanceCounter = 0;
 	[createTableSyntaxWindow orderOut:nil];
 #endif
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[self setParentWindow:nil];
 
 }
